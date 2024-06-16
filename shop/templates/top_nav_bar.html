@@ -1,0 +1,31 @@
+<style>
+
+    .top-nav-bar {
+        width: 17x0vh;
+        background-color: #343a41 !important;
+        min-height: 80px !important;
+        z-index: 1;
+    }
+
+    .logout-option {
+        color: white;display: flex;
+        justify-content: end;
+        margin-right: 4%;
+        font-size: smaller;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+
+</style>
+
+<div class="top-nav-bar">
+    <h1><span class="logout-option" onclick="logout()">Logout</span></h1>
+</div>
+
+<script>
+
+    function logout() {
+        window.location.href = '/'
+    }
+
+</script>
