@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+
+        #username, #password, #login-button {
+            width: 85%;
+            margin-left: 34px;
+        }
+
+        #login-button:hover {
+            background-color: blue;
+        }
+
+        .body-detetails {
+            background-image: linear-gradient(to right, #004eff, #e16ad2);
+            text-align: -webkit-center;
+            margin-top: 9%;
+        }
+
+        .div-content {
+            text-align: center;
+            border: 1px solid;
+            width: 30%;
+            background-color: white;
+            border-radius: 10px;
+            height: 21rem;
+        }
+
+        .div-margin {
+            margin-top: 7%;
+        }
+
+    </style>
+</head>
+<body class="body-detetails">
+    <div class="div-content">
+        <h2 style="margin-top: 5%;">Login</h2>
+        <div class="div-margin" id="newCaseAdd">
+            <div class="mb-3">
+                <input type="email" class="form-control" id="username" placeholder="Username" aria-describedby="emailHelp" title="Username" required>
+                <div class="invalid-feedback" style="margin-left: -84px;">
+                    Please enter the username
+                </div>
+            </div>
+            <div class="mb-3" style="margin-top: 10%;">
+                <input type="password" class="form-control" id="password" placeholder="Password" aria-describedby="emailHelp" title="Password" required>
+                <div class="invalid-feedback" style="margin-left: -84px;">
+                    Please enter the password
+                </div>
+            </div>
+            <div class="div-margin">
+                <input type="submit" class="form-control" id="login-button" placeholder="Login" aria-describedby="emailHelp" onclick="login()">
+            </div>
+             <div class="div-margin">
+                <a href="register">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginResponse" tabindex="-2" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #6c757d!important;">
+                <div class="modal-body">
+                    <b style="color: white;" id="login_user_message"></b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        function login() {
+            $('#newCaseAdd').removeClass('was-validated');
+            userName = $('#username').val()
+            password = $('#password').val()
+            if (userName == '' && password == '') {
+                $('#newCaseAdd').addClass('was-validated');
+                return
+            }
+            $.ajax({
+                type: "GET",
+                url: "login_success",
+                contentType: "application/json",
+                data: {
+                    user_name: userName,
+                    password: password
+                },
+                success: function(data) {
+                    if (data.status_code == 200) {
+                        window.location.href = 'dashboard';
+                    } else {
+                        $('#login_user_message').text(data.message)
+                        $("#loginResponse").modal('show');
+                         setTimeout(() => {
+                            $('#loginResponse').modal('hide');
+                         }, 2000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            })
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</body>
+</html>

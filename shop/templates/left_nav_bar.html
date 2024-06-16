@@ -1,0 +1,39 @@
+<style>
+
+    .menu-options {
+        background-color: #343a41 !important;
+        padding: 42px;
+        height: 100%;
+    }
+
+    .menu-list {
+        list-style-type: none;
+        margin-top: 61%;
+    }
+
+    .menu-options a {
+       color: white;
+    }
+
+    .menu-options li {
+        margin-top: 32px;
+        color: white;
+        cursor: pointer;
+        width: 100px;
+    }
+
+    .menu-options li:hover {
+        background-color: blue;
+    }
+
+</style>
+
+<div class="menu-options">
+    <ul class="menu-list">
+        <li><a href="{% url 'dashboard' %}">My Products</a></li>
+        <li><a href="{% url 'add_product' %}">Add Products</a></li>
+        <li><a href="#">Settings</a></li>
+        <li></li>
+    </ul>
+</div>
+
